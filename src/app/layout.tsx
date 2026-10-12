@@ -13,7 +13,7 @@ const display = Barlow_Condensed({
 const { IDENTITY } = DICTS.en;
 
 // Change this when a custom domain is connected.
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuna-portfolio-sigma.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tunabosdurmaz.vercel.app";
 const TITLE = "Tuna Bosdurmaz — Software Engineer";
 const DESCRIPTION =
   "Software engineer in Ankara building production web, mobile and backend apps with React, Next.js, React Native, TypeScript, Node.js and NestJS. Open to new roles.";
