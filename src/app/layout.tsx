@@ -12,10 +12,27 @@ const display = Barlow_Condensed({
 
 const { IDENTITY } = DICTS.en;
 
+// Change this when a custom domain is connected.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuna-portfolio-sigma.vercel.app";
+const TITLE = "Tuna Bosdurmaz — Software Engineer";
+const DESCRIPTION =
+  "Software engineer in Ankara building production web, mobile and backend apps with React, Next.js, React Native, TypeScript, Node.js and NestJS. Open to new roles.";
+
 export const metadata: Metadata = {
-  title: `${IDENTITY.name.replace(/\b(\w)(\w*)/g, (_, a, b) => a + b.toLowerCase())} — Software Engineer`,
-  description:
-    "Software engineer in Ankara building production web, mobile and backend apps with React, Next.js, React Native, TypeScript, Node.js and NestJS. Open to new roles.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: IDENTITY.name,
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: "en_US",
+    alternateLocale: ["tr_TR"],
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export const viewport: Viewport = {
