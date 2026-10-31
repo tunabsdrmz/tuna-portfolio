@@ -777,8 +777,8 @@ export function EmailCard() {
 const FIELD =
   "bg-transparent border-0 border-b border-hairline text-fg font-mono text-[11px] uppercase tracking-[0.12em] py-2.5 outline-none w-full placeholder:text-dim focus:border-fg transition-colors duration-200";
 
-// Set these in .env.local to deliver the form through EmailJS.
-// Without them the form opens the visitor's mail app instead.
+// Set these in .env.local (and in Vercel) to deliver the form through EmailJS.
+// Without them the form shows an error asking the visitor to email directly.
 const EMAILJS = {
   service: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
   template: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
@@ -796,23 +796,20 @@ export function FormCard() {
     e.preventDefault();
     setState("sending");
     try {
-      if (EMAILJS.service && EMAILJS.template && EMAILJS.key) {
-        const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            service_id: EMAILJS.service,
-            template_id: EMAILJS.template,
-            user_id: EMAILJS.key,
-            template_params: { name, email, message, title: "Portfolio Contact" },
-          }),
-        });
-        if (!res.ok) throw new Error(await res.text());
-      } else {
-        const subject = encodeURIComponent(`Portfolio — ${name}`);
-        const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-        window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+      if (!EMAILJS.service || !EMAILJS.template || !EMAILJS.key) {
+        throw new Error("EmailJS is not configured");
       }
+      const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: EMAILJS.service,
+          template_id: EMAILJS.template,
+          user_id: EMAILJS.key,
+          template_params: { name, email, reply_to: email, message, title: "Portfolio Contact" },
+        }),
+      });
+      if (!res.ok) throw new Error(await res.text());
       setState("sent");
       setName("");
       setEmail("");
