@@ -274,6 +274,11 @@ const STACK_EN: StackCat[] = [
     label: "DATA",
     skills: ["POSTGRESQL", "MONGODB", "REDIS", "SUPABASE"],
   },
+  {
+    id: "ai",
+    label: "AI",
+    skills: ["CLAUDE", "CODEX", "CHATGPT", "ANTHROPIC SDK", "OPENAI SDK", "GROQ"],
+  },
 ];
 
 const SKILLJAR = "https://verify.skilljar.com/c/";
@@ -625,6 +630,7 @@ const tr: Dict = {
     { ...STACK_EN[2], label: "BACKEND" },
     { ...STACK_EN[3], label: "ARAÇLAR & PLATFORMLAR" },
     { ...STACK_EN[4], label: "VERİ" },
+    { ...STACK_EN[5], label: "YAPAY ZEKÂ" },
   ],
   EDUCATION: [
     {
